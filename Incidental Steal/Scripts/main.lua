@@ -16,6 +16,7 @@ local function PatchAvailTags()
         return
     end
     LastPatchTime = CurrentTime
+    ---@type ADatabaseDefineStatic | UObject
     local DB = FindFirstOf("DatabaseDefineStatic")
     if not DB or not DB.m_SkillAvailID or not DB.m_SkillAvailID.m_DataList then
         H.LogError("Mod Error: Could not locate DataList.")
