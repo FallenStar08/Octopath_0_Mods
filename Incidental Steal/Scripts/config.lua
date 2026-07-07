@@ -1,5 +1,13 @@
+local LogLevel = {
+    DEBUG = 3,
+    INFO = 2,
+    ERROR = 1,
+    NONE = 0
+}
+
+
 local CONFIG = {
-    LogLevel = 2
+    LogLevel = LogLevel.DEBUG
 }
 
 return CONFIG
