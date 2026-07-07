@@ -8,7 +8,7 @@ local H = require("Shared.Helpers")
 H.Init("IncidentalStealer :")
 
 local LastPatchTime = 0
-local COOLDOWN = 5000 -- 5 seconds in milliseconds
+local COOLDOWN = 5000
 local function PatchAvailTags()
     local CurrentTime = os.clock() * 1000
     if (CurrentTime - LastPatchTime) < COOLDOWN then
