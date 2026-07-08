@@ -24,6 +24,7 @@ local CooldownTracker = {}
 ---@param path any
 ---@return PatchTask
 function octoHelpers.Patch(path)
+    H.LogDebug("[OctoHelpers.Patch] Creating patch task for path: " .. tostring(path))
     local task = {
         path = path,
         modifiers = {},
@@ -36,6 +37,7 @@ function octoHelpers.Patch(path)
 
     ---@param self PatchTask
     function task:All()
+        H.LogDebug("[PatchTask.All] Enabling list mode for path: " .. tostring(self.path))
         self._isList = true
         return self
     end
@@ -44,6 +46,8 @@ function octoHelpers.Patch(path)
     ---@param field string
     ---@param value any
     function task:Where(field, value)
+        H.LogDebug("[PatchTask.Where] Setting filter for path: " ..
+            tostring(self.path) .. ", field: " .. tostring(field) .. ", value: " .. tostring(value))
         self._matchField = field
         self._matchValue = value
         return self
@@ -52,6 +56,8 @@ function octoHelpers.Patch(path)
     ---@param self PatchTask
     ---@param ms number
     function task:Cooldown(ms)
+        H.LogDebug("[PatchTask.Cooldown] Adding cooldown modifier for path: " ..
+            tostring(self.path) .. ", ms: " .. tostring(ms))
         table.insert(self.modifiers, function()
             local id = self.path .. tostring(self._matchValue or "all")
             local current = os.clock() * 1000
@@ -66,6 +72,8 @@ function octoHelpers.Patch(path)
     ---@param self PatchTask
     ---@param ms number
     function task:Delay(ms)
+        H.LogDebug("[PatchTask.Delay] Scheduling delayed execution for path: " ..
+            tostring(self.path) .. ", delay ms: " .. tostring(ms))
         self._scheduledDelay = ms
         return self
     end
@@ -88,22 +96,47 @@ function octoHelpers.Patch(path)
 
     function task:_runActualPatch(callback)
         local DB = FindFirstOf("DatabaseDefineStatic")
-        local current = DB
-        H.LogDebug("Found DatabaseDefineStatic: " .. (DB and DB:GetFullName() or "nil"))
-        H.LogDebug("Patching database path: " ..
-            self.path ..
-            (self._isList and " (all entries)" or (" where " .. self._matchField .. " = " .. tostring(self._matchValue))))
+        if not DB then
+            H.LogError("[PatchTask._runActualPatch] DatabaseDefineStatic not found. Aborting path: " ..
+                tostring(self.path))
+            return
+        end
 
+        local current = DB
         for part in string.gmatch(self.path, "([^.]+)") do current = current[part] end
 
+        local pendingUpdates = {}
+        local scannedCount = 0
+        local matchedCount = 0
+        local updatedCount = 0
+
+        H.LogDebug("[PatchTask._runActualPatch] Beginning iteration for path: " .. tostring(self.path) ..
+            ". Is list: " ..
+            tostring(self._isList) .. (self._matchField and (", match field: " .. tostring(self._matchField) ..
+                ", match value: " .. tostring(self._matchValue)) or ""))
+
         current:ForEach(function(Index, Elem)
+            scannedCount = scannedCount + 1
+
             local Entry = Elem:get()
-            if self._isList or Entry[self._matchField] == self._matchValue then
+            if self._isList or (self._matchField and Entry[self._matchField] == self._matchValue) then
+                matchedCount = matchedCount + 1
                 callback(Entry)
-                Elem:set(Entry)
-                H.LogDebug("Patched entry at index " .. Index .. " with ID " .. tostring(Entry[self._matchField]))
+                table.insert(pendingUpdates, { elem = Elem, entry = Entry })
             end
         end)
+
+        H.LogDebug("[PatchTask._runActualPatch] Iteration complete. Scanned: " ..
+            tostring(scannedCount) ..
+            ", matched: " .. tostring(matchedCount) .. ", pending updates: " .. tostring(#pendingUpdates))
+
+        for i, update in ipairs(pendingUpdates) do
+            update.elem:set(update.entry)
+            updatedCount = updatedCount + 1
+        end
+
+        H.LogDebug("[PatchTask._runActualPatch] Patch complete for path: " .. tostring(self.path) ..
+            ", updated: " .. tostring(updatedCount) .. " entries.")
     end
 
     return task
