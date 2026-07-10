@@ -4,6 +4,24 @@ local octoHelpers = {}
 local CooldownTracker = {}
 
 
+---@param candidate any
+---@param expected any
+---@return boolean
+local function matchesExpectedValue(candidate, expected)
+    if type(expected) ~= "table" then
+        return candidate == expected
+    end
+
+    for _, value in ipairs(expected) do
+        if candidate == value then
+            return true
+        end
+    end
+
+    return false
+end
+
+
 ---@class PatchTask
 ---@field path string
 ---@field modifiers function[]
@@ -13,7 +31,7 @@ local CooldownTracker = {}
 ---@field _isList boolean
 ---@field _scheduledDelay number|nil
 ---@field All fun(self: PatchTask): PatchTask
----@field Where fun(self: PatchTask, field: string, value: any): PatchTask
+---@field Where fun(self: PatchTask, field: string, value: any|any[]): PatchTask
 ---@field Cooldown fun(self: PatchTask, ms: number): PatchTask
 ---@field Delay fun(self: PatchTask, ms: number): PatchTask
 ---@field Execute fun(self: PatchTask, callback: function)
@@ -44,7 +62,7 @@ function octoHelpers.Patch(path)
 
     ---@param self PatchTask
     ---@param field string
-    ---@param value any
+    ---@param value any|any[]
     function task:Where(field, value)
         H.LogDebug("[PatchTask.Where] Setting filter for path: " ..
             tostring(self.path) .. ", field: " .. tostring(field) .. ", value: " .. tostring(value))
@@ -59,7 +77,12 @@ function octoHelpers.Patch(path)
         H.LogDebug("[PatchTask.Cooldown] Adding cooldown modifier for path: " ..
             tostring(self.path) .. ", ms: " .. tostring(ms))
         table.insert(self.modifiers, function()
-            local id = self.path .. tostring(self._matchValue or "all")
+            local matchKey = self._matchValue
+            if type(matchKey) == "table" then
+                matchKey = table.concat(matchKey, ",")
+            end
+
+            local id = self.path .. tostring(matchKey or "all")
             local current = os.clock() * 1000
             local last = CooldownTracker[id] or 0
             if (current - last) < ms then return false end
@@ -119,7 +142,7 @@ function octoHelpers.Patch(path)
             scannedCount = scannedCount + 1
 
             local Entry = Elem:get()
-            if self._isList or (self._matchField and Entry[self._matchField] == self._matchValue) then
+            if self._isList or (self._matchField and matchesExpectedValue(Entry[self._matchField], self._matchValue)) then
                 matchedCount = matchedCount + 1
                 callback(Entry)
                 table.insert(pendingUpdates, { elem = Elem, entry = Entry })
