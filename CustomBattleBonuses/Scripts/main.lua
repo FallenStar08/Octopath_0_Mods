@@ -8,7 +8,7 @@ package.path = sd .. "/?.lua;" .. sd .. "/Shared/?.lua;" .. package.path
 local H = require("Shared.Helpers")
 local OH = require("Shared.OctoHelpers")
 local config = require("config")
-H.Init("CustomBattleBonuses :")
+H.Init("Custom Battle Bonuses :")
 
 local battleBonusesIDs = {
     91183,
