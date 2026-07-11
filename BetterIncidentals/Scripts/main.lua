@@ -7,7 +7,7 @@ package.path = sd .. "/?.lua;" .. sd .. "/Shared/?.lua;" .. package.path
 
 local H = require("Shared.Helpers")
 local OH = require("Shared.OctoHelpers")
-H.Init("IncidentalStealer :")
+H.Init("Better Incidentals :")
 
 local AVAIL_TYPE = {
     NONE = 0,
