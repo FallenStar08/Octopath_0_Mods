@@ -9,8 +9,7 @@ local H = require("Shared.Helpers")
 local OH = require("Shared.OctoHelpers")
 H.Init("Rotate Everything :")
 
-
-RegisterHook("/Script/Engine.PlayerController:ClientRestart", function()
+local function patch()
     OH.Patch("m_VillageBuildingData.m_DataList")
         :All()
         :Cooldown(5000)
@@ -18,4 +17,8 @@ RegisterHook("/Script/Engine.PlayerController:ClientRestart", function()
         :Execute(function(entry)
             entry.m_RotationType = 2
         end)
-end)
+end
+
+RegisterHook("/Script/Engine.PlayerController:ClientRestart", patch)
+
+RegisterKeyBind(Key.F5, patch)

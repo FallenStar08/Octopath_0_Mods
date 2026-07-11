@@ -24,9 +24,7 @@ local IdsToPatch = {
     55538
 }
 
-
-
-RegisterHook("/Script/Engine.PlayerController:ClientRestart", function()
+local function patch()
     OH.Patch("m_TacticalSkillList.m_DataList")
         :Where("m_id", IdsToPatch)
         :Cooldown(5000)
@@ -40,4 +38,9 @@ RegisterHook("/Script/Engine.PlayerController:ClientRestart", function()
                 end)
             end
         end)
-end)
+end
+
+
+RegisterHook("/Script/Engine.PlayerController:ClientRestart", patch)
+
+RegisterKeyBind(Key.F5, patch)

@@ -52,3 +52,4 @@ luac.out
 
 # Built Visual Studio Code Extensions
 *.vsix
+ContentDump
