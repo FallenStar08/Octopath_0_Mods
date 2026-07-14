@@ -117,6 +117,9 @@ function octoHelpers.Patch(path)
         end
     end
 
+    ---Actual patch execution logic
+    ---@private
+    ---@param callback function
     function task:_runActualPatch(callback)
         local DB = FindFirstOf("DatabaseDefineStatic")
         if not DB then
