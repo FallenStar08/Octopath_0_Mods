@@ -17,6 +17,20 @@ local function patch()
         :Execute(function(entry)
             entry.m_RotationType = 2
         end)
+    OH.Patch("m_VillageTownLevel.m_DataList")
+        :All()
+        :Cooldown(5000)
+        :Delay(2000)
+        :Execute(function(entry)
+            entry.m_PlacedLimitNum     = 9999
+            entry.m_BuildingMaxPC      = 9999
+            entry.m_BuildingMaxWINGDK  = 9999
+            entry.m_BuildingMaxXSX     = 9999
+            entry.m_BuildingMaxSwitch  = 9999
+            entry.m_BuildingMaxSwitch2 = 9999
+            entry.m_BuildingMaxPS4     = 9999
+            entry.m_BuildingMaxPS5     = 9999
+        end)
 end
 
 RegisterHook("/Script/Engine.PlayerController:ClientRestart", patch)
