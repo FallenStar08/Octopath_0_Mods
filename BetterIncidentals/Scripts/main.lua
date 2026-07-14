@@ -56,7 +56,7 @@ local newTags = {
 }
 
 local incidentals = {
-    75160, -- incidental heal
+    75160, --incidental heal
     75162, --incidental steal
     75158, --incidental attack
     75156, --incidental analysis

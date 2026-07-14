@@ -1,6 +1,6 @@
-## Incidental Steal
+## Better Incidentals
 
-This mod updates the **Incidental Steal** passive skill so it works with all physical skills, including multi-target ones,
+This mod updates the **Incidental Skills** passive skills so it works with pretty much all actions
 for **Octopath Traveler 0** using **UE4SS**.
 
 ## Requirements
@@ -22,6 +22,6 @@ for **Octopath Traveler 0** using **UE4SS**.
 ## Uninstallation
 
 1. Close the game.
-2. Remove the **Incidental Steal** folder from `UE4SS\Mods`.
+2. Remove the **BetterIncidentals** folder from `UE4SS\Mods`.
 
 
