@@ -6,11 +6,11 @@ local LogLevel = {
 }
 
 local CONFIG = {
-    LogLevel = LogLevel.DEBUG,
+
     --Main toggles for each module
-    CATS_DONT_FLEE_ENABLED = true,
-    STATS_BOOST_ENABLED = true,
-    CUSTOM_BATTLE_BONUSES_ENABLED = true,
+    CATS_DONT_FLEE_ENABLED = true,        --Toggle to remove the ability for Caith to flee
+    STATS_BOOST_ENABLED = true,           --Toggle to enable the global stats boost for enemies, this will apply the multipliers defined in GlobalStatsBoost to all enemies in the game
+    CUSTOM_BATTLE_BONUSES_ENABLED = true, --Toggle to enable custom battle bonuses
 
 
     --Bonuses for battle conditions, values are additive multipliers to the base (1.0) reward (0.25 = 1.25 total bonus = 25% bonus)
@@ -61,8 +61,8 @@ local CONFIG = {
             m_Money = 1.0,
             m_JP = 1.0,
         }
-    }
-
+    },
+    LogLevel = LogLevel.INFO, --Dont touch UwU
 }
 
 return CONFIG
