@@ -7,7 +7,7 @@ local LogLevel = {
 
 
 local CONFIG = {
-    LogLevel = LogLevel.DEBUG
+    LogLevel = LogLevel.INFO
 }
 
 return CONFIG
