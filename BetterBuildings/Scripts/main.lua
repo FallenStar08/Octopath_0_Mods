@@ -12,8 +12,8 @@ H.Init("Helpers Config :")
 
 
 local VILLAGE_BONUS_TYPE_SUPPORTER_ENTRY_COUNT = {
-    74357, -- church bonus + 2 uses
-    75131  -- church bonus + 4 uses
+    74357, -- church bonus + 2 max added amount
+    75131  -- church bonus + 4 max added amount
 }
 
 local BoxAvailsValues = {
@@ -26,7 +26,6 @@ local BoxAvailsValues = {
     76124, --Small GatherBox Money (25k)
     76125, --Medium GatherBox Money (60k)
     76126, --Large GatherBox Money (100k)
-
 }
 
 
