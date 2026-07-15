@@ -8,7 +8,7 @@ local LogLevel = {
 local CONFIG = {
 
     --Main toggles for each module
-    CATS_DONT_FLEE_ENABLED = true,        --Toggle to remove the ability for Caith (& octodudes) to flee
+    CATS_DONT_FLEE_ENABLED = true,        --Toggle to remove the ability for Cait (& octodudes) to flee
     STATS_BOOST_ENABLED = true,           --Toggle to enable the global stats boost for enemies, this will apply the multipliers defined in GlobalStatsBoost to all enemies in the game
     CUSTOM_BATTLE_BONUSES_ENABLED = true, --Toggle to enable custom battle bonuses
 
@@ -24,7 +24,7 @@ local CONFIG = {
 
     --Stats boost values for enemies, these are multipliers to the base stats (1.0 = no change, 1.25 = 25% increase, 0.75 = 25% decrease)
     GlobalStatsBoost = {
-        BoostNormals = false,
+        BoostNormals = true, -- wether to apply the boost to normal enemies
         Normal = {
             m_MaxHP = 1.25,
             m_MaxSP = 1.25,
@@ -42,7 +42,7 @@ local CONFIG = {
             m_Money = 1.0,
             m_JP = 1.0,
         },
-        BoostBosses = true,
+        BoostBosses = true,          -- wether to apply the boost to bosses
         UseBossSpecificBoost = true, --If false then bosses will use the same boost as normal enemies
         Boss = {
             m_MaxHP = 1.20,
@@ -62,7 +62,7 @@ local CONFIG = {
             m_JP = 1.0,
         }
     },
-    LogLevel = LogLevel.DEBUG, --Dont touch UwU
+    LogLevel = LogLevel.INFO, --Dont touch UwU
 }
 
 return CONFIG
