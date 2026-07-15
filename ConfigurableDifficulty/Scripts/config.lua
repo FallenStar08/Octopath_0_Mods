@@ -7,13 +7,13 @@ local LogLevel = {
 
 local CONFIG = {
 
-    --Main toggles for each module
+    --Main toggles for each module set to true to enable the module, false to disable it
     CATS_DONT_FLEE_ENABLED = true,        --Toggle to remove the ability for Cait (& octodudes) to flee
     STATS_BOOST_ENABLED = true,           --Toggle to enable the global stats boost for enemies, this will apply the multipliers defined in GlobalStatsBoost to all enemies in the game
     CUSTOM_BATTLE_BONUSES_ENABLED = true, --Toggle to enable custom battle bonuses
 
 
-    --Bonuses for battle conditions, values are additive multipliers to the base (1.0) reward (0.25 = 1.25 total bonus = 25% bonus)
+    --Bonuses for battle conditions, values are additive multipliers to the base (1.0) exp/jp/money reward (0.25 = 1.25 total bonus = 25% bonus)
     battleBonuses = {
         ["NoDamage"] = 0.25,
         ["OverKill"] = 0.25,
