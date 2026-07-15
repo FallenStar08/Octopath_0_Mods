@@ -62,7 +62,7 @@ local CONFIG = {
             m_JP = 1.0,
         }
     },
-    LogLevel = LogLevel.INFO, --Dont touch UwU
+    LogLevel = LogLevel.DEBUG, --Dont touch UwU
 }
 
 return CONFIG

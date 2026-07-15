@@ -43,6 +43,7 @@ local battleBonuses = {
 local function patch()
     --Module difficulty (stats)
     if config.STATS_BOOST_ENABLED then
+        H.LogDebug("Patching enemy stats")
         OH.Patch("m_EnemyID.m_DataList")
             :All()
             :Execute(function(entry)
@@ -79,6 +80,7 @@ local function patch()
 
     --Module Cats
     if config.CATS_DONT_FLEE_ENABLED then
+        H.LogDebug("Patching rare enemy skills")
         OH.Patch("m_TacticalSkillList.m_DataList")
             :Where("m_id", CatsIDs)
             :Cooldown(5000)
@@ -96,6 +98,7 @@ local function patch()
 
     --Module Battle Bonuses
     if config.CUSTOM_BATTLE_BONUSES_ENABLED then
+        H.LogDebug("Patching battle bonuses")
         OH.Patch("m_BattleResultBonus.m_DataList")
             :Where("m_TextID", battleBonusesIDs)
             :Cooldown(5000)
