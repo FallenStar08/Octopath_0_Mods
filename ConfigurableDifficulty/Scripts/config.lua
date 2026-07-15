@@ -24,6 +24,7 @@ local CONFIG = {
 
     --Stats boost values for enemies, these are multipliers to the base stats (1.0 = no change, 1.25 = 25% increase, 0.75 = 25% decrease)
     GlobalStatsBoost = {
+        -- Normal Enemies
         BoostNormals = true, -- wether to apply the boost to normal enemies
         Normal = {
             m_MaxHP = 1.25,
@@ -42,8 +43,9 @@ local CONFIG = {
             m_Money = 1.0,
             m_JP = 1.0,
         },
+        -- Bosses
         BoostBosses = true,          -- wether to apply the boost to bosses
-        UseBossSpecificBoost = true, --If false then bosses will use the same boost as normal enemies
+        UseBossSpecificBoost = true, -- If false then bosses will use the same boost as normal enemies
         Boss = {
             m_MaxHP = 1.20,
             m_MaxSP = 1.00,
