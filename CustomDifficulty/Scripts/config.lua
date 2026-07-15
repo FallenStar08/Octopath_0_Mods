@@ -5,10 +5,25 @@ local LogLevel = {
     NONE = 0
 }
 
-
 local CONFIG = {
     LogLevel = LogLevel.DEBUG,
-    GlobalBoost = {
+    --Main toggles for each module
+    CATS_DONT_FLEE_ENABLED = true,
+    STATS_BOOST_ENABLED = true,
+    CUSTOM_BATTLE_BONUSES_ENABLED = true,
+
+
+    --Bonuses for battle conditions, values are additive multipliers to the base (1.0) reward (0.25 = 1.25 total bonus = 25% bonus)
+    battleBonuses = {
+        ["NoDamage"] = 0.25,
+        ["OverKill"] = 0.25,
+        ["Break"] = 0.25,
+        ["1TurnKill"] = 0.25,
+    },
+
+
+    --Stats boost values for enemies, these are multipliers to the base stats (1.0 = no change, 1.25 = 25% increase, 0.75 = 25% decrease)
+    GlobalStatsBoost = {
         BoostNormals = false,
         Normal = {
             m_MaxHP = 1.25,
@@ -25,11 +40,10 @@ local CONFIG = {
             m_DamageRate = 1.00,
             m_Exp = 1.0,
             m_Money = 1.0,
-            m_PetExp = 1.0,
             m_JP = 1.0,
         },
         BoostBosses = true,
-        UseBossSpecificBoost = true,
+        UseBossSpecificBoost = true, --If false then bosses will use the same boost as normal enemies
         Boss = {
             m_MaxHP = 1.20,
             m_MaxSP = 1.00,
@@ -45,7 +59,6 @@ local CONFIG = {
             m_DamageRate = 1.00,
             m_Exp = 1.0,
             m_Money = 1.0,
-            m_PetExp = 1.0,
             m_JP = 1.0,
         }
     }
