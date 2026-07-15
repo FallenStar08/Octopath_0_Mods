@@ -16,6 +16,20 @@ local VILLAGE_BONUS_TYPE_SUPPORTER_ENTRY_COUNT = {
     75131  -- church bonus + 4 uses
 }
 
+local BoxAvailsValues = {
+    74373, --Small Harvest Box 10
+    74374, --Medium Harvest Box 30
+    74375, --Large Harvest Box 100
+    74377, --Small GatherBox 10
+    74379, --Medium GatherBox 30
+    74381, --Large GatherBox 100
+    76124, --Small GatherBox Money (25k)
+    76125, --Medium GatherBox Money (60k)
+    76126, --Large GatherBox Money (100k)
+
+}
+
+
 local function patch()
     OH.Patch("m_SkillAvailID.m_DataList")
         :Where("m_id", VILLAGE_BONUS_TYPE_SUPPORTER_ENTRY_COUNT)
@@ -27,6 +41,21 @@ local function patch()
                     local value = elem:get()
                     if value ~= 0 then
                         elem:set(value * config.MaxHelpersAmountMulti)
+                    end
+                end)
+            end
+        end)
+
+    OH.Patch("m_SkillAvailID.m_DataList")
+        :Where("m_id", BoxAvailsValues)
+        :Cooldown(5000)
+        :Delay(2000)
+        :Execute(function(entry)
+            if entry.m_Values and type(entry.m_Values.ForEach) == "function" then
+                entry.m_Values:ForEach(function(index, elem)
+                    local value = elem:get()
+                    if value ~= 0 then
+                        elem:set(value * config.StorageMulti)
                     end
                 end)
             end

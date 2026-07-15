@@ -8,7 +8,8 @@ local LogLevel = {
 
 local CONFIG = {
     LogLevel = LogLevel.DEBUG,
-    MaxHelpersAmountMulti = 5
+    MaxHelpersAmountMulti = 5,
+    StorageMulti = 10
 }
 
 return CONFIG
