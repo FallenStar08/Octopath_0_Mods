@@ -8,7 +8,7 @@ local LogLevel = {
 local CONFIG = {
 
     --Main toggles for each module
-    CATS_DONT_FLEE_ENABLED = true,        --Toggle to remove the ability for Caith to flee
+    CATS_DONT_FLEE_ENABLED = true,        --Toggle to remove the ability for Caith (& octodudes) to flee
     STATS_BOOST_ENABLED = true,           --Toggle to enable the global stats boost for enemies, this will apply the multipliers defined in GlobalStatsBoost to all enemies in the game
     CUSTOM_BATTLE_BONUSES_ENABLED = true, --Toggle to enable custom battle bonuses
 
